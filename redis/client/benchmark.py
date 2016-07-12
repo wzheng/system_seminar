@@ -5,16 +5,16 @@ import multiprocessing
 import random
 import time
 import redis
-
+import rediscluster
+import redisconfig
 
 def new_client():
     """
-    Returns a new pubsub client instance - either the Redis or ZeroMQ
+    Returns a new pubsub client instance
     client, based on command-line arg.
     """
-    Client = redis.Redis
-    return Client(host=args.host, port=7000)
-
+    return rediscluster.RedisCluster(startup_nodes=redisconfig.hosts, decode_responses=True)
+    #return redis.Redis(host="172.31.36.59", port=7000)
 
 def publisher():
     """
@@ -92,7 +92,6 @@ def latency_test():
 
     message = u"x" * args.message_size
 
-
     start = time.time()
     for i in xrange(100):
         client.publish(channels[0], message)
@@ -111,14 +110,13 @@ if __name__ == "__main__":
     global args, channels
     default_num_clients = multiprocessing.cpu_count() / 2
     parser = argparse.ArgumentParser()
-    parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--num-clients", type=int, default=1)
+    parser.add_argument("--num-clients", type=int, default=50)
     parser.add_argument("--num-seconds", type=int, default=10)
-    parser.add_argument("--num-channels", type=int, default=1)
+    parser.add_argument("--num-channels", type=int, default=10)
     parser.add_argument("--message-size", type=int, default=20)
 
     args = parser.parse_args()
     channels = [str(i) for i in range(args.num_channels)]
-
-    throughput_test()
+    
     latency_test()
+    throughput_test()
