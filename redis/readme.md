@@ -52,3 +52,8 @@ cluster-node-timeout 5000
 4. Install redis gem: <code>gem install redis</code>
 
 5. Create your new cluster with the script under ./src: <code>./src/redis-trib.rb create --replicas 1 HOST1:PORT1 HOST2:PORT2 ...</code>
+
+## Try out the redis benchmark
+1. Create a new file client/redisconfig.py
+2. Specify the hosts: `hosts=[{"host": 127.0.0.1, "port": 7000}, ...]`
+3. Run the benchmark: `python benchmark.py --num-clients 50 --num-seconds 10 --num-channels 10 --message-size 20`
