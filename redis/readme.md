@@ -36,7 +36,8 @@ EXEC
 1. Start two clients
 2. Subscribe to two channels on one client: <code>SUBSCRIBE channel1 channel2</code>
 3. Publish on another client: <code>PUBLISH channel1 "hello world"</code>
-
+4. Subscribe using pattern matching: <code> PSUBSCRIBE channel*</code>
+5. Try to publish on another client: <code> PUBLISH channel2 "hello world channel2"</code>
 
 ## Cluster installation on ec2
 1. Follow single machine installation
