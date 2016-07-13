@@ -49,9 +49,12 @@ cluster-enabled yes
 cluster-config-file nodes.conf
 cluster-node-timeout 5000
 </pre>
+
+Remember to open the port, and 10000 + port in the ec2 security group setting. 10000 + port is used for cluster instances to communicate with one another.
+
 4. Install redis gem: <code>gem install redis</code>
 
-5. Create your new cluster with the script under ./src: <code>./src/redis-trib.rb create --replicas 1 HOST1:PORT1 HOST2:PORT2 ...</code>
+5. Create your new cluster using the script under ./src: <code>./src/redis-trib.rb create --replicas 1 HOST1:PORT1 HOST2:PORT2 ...</code>
 
 ## Try out the redis benchmark
 1. Create a new file client/redisconfig.py

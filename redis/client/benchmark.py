@@ -81,9 +81,9 @@ def throughput_test():
     run_workers(subscriber)
 
     # Consume metrics until --num-seconds has passed, and display
-    # the median value.
-    metrics = sorted(get_metrics())
-    print metrics[len(metrics) / 2], "median msg/sec"
+    # the average value.
+    metrics = sum(sorted(get_metrics()))
+    print (metrics * 1.0 / args.num_seconds), " msg/sec"
 
 
 def latency_test():
